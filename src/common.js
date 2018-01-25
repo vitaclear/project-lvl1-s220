@@ -15,7 +15,6 @@ export const process = (task, rightanswer) => {
   for (; i < 4; i += 1) {
     const value = task();
     const answ = readlineSync.question(`${car(value)}: `);
-    console.log(`!!!!!! ${answ}, ${rightanswer(cdr(value))}`);
     if (answ === rightanswer(cdr(value))) {
       console.log('Correct!');
     } else {
