@@ -1,6 +1,6 @@
 {
   "name": "vitaclear1-package",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Learning project 1",
   "main": "dist/index.js",
   "bin": {
@@ -38,6 +38,7 @@
     "eslint-plugin-import": "^2.8.0"
   },
   "dependencies": {
+    "hexlet-pairs": "^1.0.5",
     "readline-sync": "^1.4.7"
   }
 }
