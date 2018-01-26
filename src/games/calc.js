@@ -3,17 +3,19 @@ import { rules, process, randnum } from '../common';
 
 const calcgame = () => {
   rules('Please answer what is the result of the expression.');
-  const rightansw = expression => String(expression);
-  const expr = (firstnum, secondnum, thirdnum) => {
-    if (secondnum % 3 === 0) {
-      return cons(`${firstnum} * ${thirdnum}`, String(firstnum * thirdnum));
+  const tasktodo = () => {
+    const num1 = randnum(100);
+    const num2 = randnum(100);
+    const action = randnum(3);
+    if (action === 1) {
+      return cons(`${num1} * ${num2}`, num1 * num2);
     }
-    if (secondnum % 3 === 1) {
-      return cons(`${firstnum} + ${thirdnum}`, String(firstnum + thirdnum));
+    if (action === 2) {
+      return cons(`${num1} + ${num2}`, num1 + num2);
     }
-    return cons(`${firstnum} - ${thirdnum}`, String(firstnum - thirdnum));
+    return cons(`${num1} - ${num2}`, num1 - num2);
   };
-  process(() => expr(randnum(100), randnum(10), randnum(100)), rightansw);
+  process(() => tasktodo());
 };
 
 export default calcgame;

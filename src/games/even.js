@@ -3,14 +3,14 @@ import { rules, process, randnum } from '../common';
 
 const evengame = () => {
   rules('Please answer "yes" if a number is even, otherwise answer "no".');
-  const isright = (numb) => {
+  const iseven = (numb) => {
     if (numb % 2 === 0) {
       return 'yes';
     }
     return 'no';
   };
-  const makedouble = k => cons(k, k);
-  process(() => makedouble(randnum(100)), isright);
+  const makedouble = k => cons(k, iseven(k));
+  process(() => makedouble(randnum(100)));
 };
 
 export default evengame;

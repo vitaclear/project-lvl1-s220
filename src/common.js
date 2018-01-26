@@ -10,15 +10,15 @@ export const rules = (rule) => {
 
 export const randnum = n => Math.round((1 - Math.random()) * n);
 
-export const process = (task, rightanswer) => {
+export const process = (task) => {
   let i = 1;
   for (; i < 4; i += 1) {
     const value = task();
     const answ = readlineSync.question(`${car(value)}: `);
-    if (answ === rightanswer(cdr(value))) {
+    if (answ === String(cdr(value))) {
       console.log('Correct!');
     } else {
-      console.log(`'${answ}' is a wrong answer. Correct answer is '${rightanswer(cdr(value))}'.\nLet's try again, ${gamer}!`);
+      console.log(`'${answ}' is a wrong answer. Correct answer is '${cdr(value)}'.\nLet's try again, ${gamer}!`);
       break;
     }
   }
