@@ -23,37 +23,38 @@ const isbalanced = (num) => {
   return true;
 };
 
-const sort = (num) => {
-  if (digits(num) === 1) { return num; }
-  if (issorted(num)) { return num; }
-  let result = '';
-  let dig2 = '';
-  if (String(num)[0] <= String(num)[1]) {
-    dig2 = `${String(num)[1]}`;
-    const rest = sort(`${dig2}${String(num).substring(2)}`);
-    result = (`${String(num)[0]}${rest}`);
-  }
-  if (String(num)[0] > String(num)[1]) {
-    dig2 = `${String(num)[0]}`;
-    const rest = sort(`${dig2}${String(num).substring(2)}`);
-    result = (`${String(num)[1]}${rest}`);
-  }
-  if (!issorted(result)) {
-    return sort(result);
-  }
-  return result;
+const balancepair = (digit1, digit2) => {
+  if (digit1 === digit2) { return (10 * digit1) + digit2; }
+  if (digit1 > digit2) { return balancepair(digit2, digit1); }
+  if (digit2 - digit1 === 1) { return (10 * digit1) + digit2; }
+  return balancepair(digit1 + 1, digit2 - 1);
 };
 
 const balancenum = (num) => {
   if (isbalanced(num)) { return num; }
   if (digits(num) === 1) { return num; }
-  const sortednum = sort(num);
-  if (isbalanced(sortednum)) { return sortednum; }
-  const new1stdigit = Number(String(sortednum)[0]) + 1;
-  const newlastdigit = Number(String(sortednum)[digits(sortednum) - 1]) - 1;
-  const middle = String(sortednum).substring(1, digits(sortednum) - 1);
-  const newnum = Number(`${new1stdigit}${middle}${newlastdigit}`);
-  return balancenum(newnum);
+  const firstdigit = Math.floor(num / (10 ** (digits(num) - 1)));
+  if ((firstdigit + digits(num)) - 2 === num % 10) {
+    const oldfirst = firstdigit * (10 ** (digits(num) - 1));
+    const newfirst = (num % 10) * (10 ** (digits(num) - 1));
+    const notodered = ((num - oldfirst) - (num % 10)) + (newfirst + firstdigit);
+    return balancenum(notodered);
+  }
+  const step = (numb) => {
+    const pair = balancepair(Math.floor(numb / 10) % 10, numb % 10);
+    const hundreds = Math.floor(numb / 100);
+    if (hundreds > 0) {
+      const lastpaired = (hundreds * 100) + pair;
+      const tens = Math.floor(lastpaired / 10);
+      const lastdigit = lastpaired % 10;
+      if ((Math.floor(step(tens) % 10) + 2) === lastdigit) {
+        return ((step(tens) * 10) + 10) + (lastdigit - 1);
+      }
+      return (step(tens) * 10) + lastdigit;
+    }
+    return pair;
+  };
+  return balancenum(step(num));
 };
 
 const balancegame = () => {
