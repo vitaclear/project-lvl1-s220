@@ -1,5 +1,5 @@
 import { cons } from 'hexlet-pairs';
-import { rules, process, randnum } from '../common';
+import { rules, process, randnum } from '../index';
 
 const generatenumber = (start, step, number) => {
   if (number === 1) { return start; }

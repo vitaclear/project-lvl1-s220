@@ -1,5 +1,5 @@
 import { cons } from 'hexlet-pairs';
-import { rules, process, randnum } from '../common';
+import { rules, process, randnum } from '../index';
 
 const calcgame = () => {
   rules('Please answer what is the result of the expression.');

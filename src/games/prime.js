@@ -1,5 +1,5 @@
 import { cons } from 'hexlet-pairs';
-import { rules, process, randnum } from '../common';
+import { rules, process, randnum } from '../index';
 
 const primegame = () => {
   rules('Please answer "yes" if a number is prime, otherwise answer "no".');
@@ -10,10 +10,7 @@ const primegame = () => {
     }
     return true;
   };
-  const makeanswer = (k) => {
-    if (isprime(k)) { return cons(k, 'yes'); }
-    return cons(k, 'no');
-  };
+  const makeanswer = k => cons(k, isprime(k));
   process(() => makeanswer(randnum(100)));
 };
 
