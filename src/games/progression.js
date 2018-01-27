@@ -1,20 +1,24 @@
 import { cons } from 'hexlet-pairs';
 import { rules, process, randnum } from '../common';
 
+const generatenumber = (start, step, number) => {
+  if (number === 1) { return start; }
+  if (number < 1) { return undefined; }
+  return start + (step * (number - 1));
+};
+
 const generateprogression = () => {
   const startnum = randnum(15);
   const step = randnum(30);
-  const missed = randnum(9);
-  const missednumber = startnum + (step * (missed));
+  const missed = randnum(9) + 1;
+  const missednumber = startnum + (step * (missed - 1));
   let progression = '';
-  for (let i = 1; i < missed + 1; i += 1) {
-    const nextnum = startnum + (step * (i - 1));
-    progression += `${nextnum}  `;
-  }
-  progression += '.. ';
-  for (let i = missed + 2; i <= 10; i += 1) {
-    const nextnum = startnum + (step * (i - 1));
-    progression += `${nextnum}  `;
+  for (let i = 1; i <= 10; i += 1) {
+    if (i === missed) {
+      progression += '..  ';
+    } else {
+      progression += `${generatenumber(startnum, step, i)}  `;
+    }
   }
   return cons(progression, missednumber);
 };
