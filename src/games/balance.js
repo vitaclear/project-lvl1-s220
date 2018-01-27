@@ -3,58 +3,66 @@ import { rules, process, randnum } from '../common';
 
 const digits = num => String(num).length;
 
-const issorted = (num) => {
-  for (let i = 0; i < digits(num) - 1; i += 1) {
-    if (String(num)[i] > String(num)[i + 1]) {
-      return false;
-    }
-  }
-  return true;
-};
+const getdigit = (num, k) => Math.floor(num / (10 ** (digits(num) - (k + 1)))) % 10;
 
 const isbalanced = (num) => {
-  if (!issorted(num)) {
-    return false;
+  for (let i = 0; i < digits(num) - 1; i += 1) {
+    const digit1 = getdigit(num, i);
+    const digit2 = getdigit(num, i + 1);
+    if (digit1 > digit2) { return false; }
+    const diff = digit2 - digit1;
+    if (diff > 1) { return false; }
   }
-  const difference = Number(String(num)[digits(num) - 1]) - Number(String(num)[0]);
-  if (difference > 1) {
+  const firstdigit = getdigit(num, 0);
+  const lastdigit = num % 10;
+  if (lastdigit - firstdigit > 1) {
     return false;
   }
   return true;
 };
 
-const balancepair = (digit1, digit2) => {
-  if (digit1 === digit2) { return (10 * digit1) + digit2; }
-  if (digit1 > digit2) { return balancepair(digit2, digit1); }
-  if (digit2 - digit1 === 1) { return (10 * digit1) + digit2; }
-  return balancepair(digit1 + 1, digit2 - 1);
+const mindigitnumber = (num) => {
+  let min = digits(num) - 1;
+  for (let i = digits(num) - 1; i >= 0; i -= 1) {
+    if (digits(num) === 1) { return 0; }
+    if (getdigit(num, i) < getdigit(num, min)) {
+      min = i;
+    }
+  }
+  return min;
+};
+
+const maxdigitnumber = (num) => {
+  let max = 0;
+  for (let i = 0; i < digits(num); i += 1) {
+    if (digits(num) === 1) { return 0; }
+    if (getdigit(num, i) > getdigit(num, max)) {
+      max = i;
+    }
+  }
+  return max;
+};
+
+const balanceextremes = (num) => {
+  let difference = 0;
+  for (let i = 0; i < digits(num); i += 1) {
+    if (i === mindigitnumber(num)) {
+      difference += 10 ** (digits(num) - (i + 1));
+    }
+    if (i === maxdigitnumber(num)) {
+      difference -= 10 ** (digits(num) - (i + 1));
+    }
+  }
+  return num + difference;
 };
 
 const balancenum = (num) => {
   if (isbalanced(num)) { return num; }
   if (digits(num) === 1) { return num; }
-  const firstdigit = Math.floor(num / (10 ** (digits(num) - 1)));
-  if ((firstdigit + digits(num)) - 2 === num % 10) {
-    const oldfirst = firstdigit * (10 ** (digits(num) - 1));
-    const newfirst = (num % 10) * (10 ** (digits(num) - 1));
-    const notodered = ((num - oldfirst) - (num % 10)) + (newfirst + firstdigit);
-    return balancenum(notodered);
+  if (!isbalanced(balanceextremes(num))) {
+    return balancenum(balanceextremes(num));
   }
-  const step = (numb) => {
-    const pair = balancepair(Math.floor(numb / 10) % 10, numb % 10);
-    const hundreds = Math.floor(numb / 100);
-    if (hundreds > 0) {
-      const lastpaired = (hundreds * 100) + pair;
-      const tens = Math.floor(lastpaired / 10);
-      const lastdigit = lastpaired % 10;
-      if ((Math.floor(step(tens) % 10) + 2) === lastdigit) {
-        return ((step(tens) * 10) + 10) + (lastdigit - 1);
-      }
-      return (step(tens) * 10) + lastdigit;
-    }
-    return pair;
-  };
-  return balancenum(step(num));
+  return balanceextremes(num);
 };
 
 const balancegame = () => {
