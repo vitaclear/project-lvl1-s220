@@ -21,9 +21,11 @@ export const process = (task) => {
   for (; i < 4; i += 1) {
     const value = task();
     const answ = readlineSync.question(`${car(value)}: `);
-    if (cdr(value) === true) { correctAnswer = 'yes'; }
-    else if (cdr(value) === false) { correctAnswer = 'no'; }
-    else { correctAnswer = String(cdr(value)); }
+    if (cdr(value) === true) {
+      correctAnswer = 'yes';
+    } else if (cdr(value) === false) {
+      correctAnswer = 'no';
+    } else { correctAnswer = String(cdr(value)); }
     if (answ === correctAnswer) {
       console.log('Correct!');
     } else {
