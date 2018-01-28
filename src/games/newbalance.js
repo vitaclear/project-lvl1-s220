@@ -15,7 +15,6 @@ const isbalanced = (digit1, digit2, digit3, digit4) => {
 };
 
 const balancenum = (digit1, digit2, digit3, digit4) => {
-  console.log(`!!!!!!!!!!!!!  ${digit1}${digit2}${digit3}${digit4}`);
   if (isbalanced(digit1, digit2, digit3, digit4)) { return `${digit1}${digit2}${digit3}${digit4}`; }
   if (digit1 === Math.max(digit1, digit2, digit3, digit4)) {
     if (digit4 === Math.min(digit2, digit3, digit4)) {
