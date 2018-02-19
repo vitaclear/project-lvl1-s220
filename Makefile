@@ -12,6 +12,10 @@ run-balance:
 	npm run babel-node -- src/bin/brain-balance.js
 run-newbalance:
 	npm run babel-node -- src/bin/brain-newbalance.js
+run-balance3:
+	npm run babel-node -- src/bin/brain-balance3.js
+run-balanceNum:
+	npm run babel-node -- src/bin/brain-balanceNum.js
 run-progression:
 	npm run babel-node -- src/bin/brain-progression.js
 run-prime:

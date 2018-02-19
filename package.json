@@ -1,6 +1,6 @@
 {
   "name": "vitaclear1-package",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "description": "Learning project 1",
   "main": "dist/index.js",
   "bin": {
@@ -11,7 +11,9 @@
     "brain-balance": "dist/bin/brain-balance.js",
     "brain-progression": "dist/bin/brain-progression.js",
     "brain-prime": "dist/bin/brain-prime.js",
-    "brain-newbalance": "dist/bin/brain-newbalance.js"
+    "brain-newbalance": "dist/bin/brain-newbalance.js",
+    "brain-balance3": "dist/bin/brain-balance3.js",
+    "brain-balanceNum": "dist/bin/brain-balanceNum.js"
   },
   "files": [
     "dist"
